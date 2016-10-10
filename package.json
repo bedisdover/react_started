@@ -14,5 +14,16 @@
   },
   "devDependencies": {
     "webpack": "^1.13.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bedisdover/react_started.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "bugs": {
+    "url": "https://github.com/bedisdover/react_started/issues"
+  },
+  "homepage": "https://github.com/bedisdover/react_started#readme"
 }
