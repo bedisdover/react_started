@@ -3,17 +3,36 @@ import React from "react";
 var Example = React.createClass({
     getInitialState() {
         return {
+            name: 'ldk',
             number: 1
         }
     },
+
+    componentDidMount: function () {
+        this.timer = setInterval(function () {
+            this.setState({
+                number: this.state.number + 1
+            });
+
+            if (this.state.number == 5) {
+                clearTimeout(this.timer);
+            }
+        }.bind(this), 1000);
+    },
+
     handleClick: function () {
-        this.setState({number: this.state.number + 1});
+        this.setState({
+            number: this.state.number + 1,
+            name: 'song'
+        }, function () {
+            this.forceUpdate();
+            alert('姓名改变');
+        });
     },
     render() {
-
         return (
             <div onClick={this.handleClick}>
-                <Name name="bedisdover"/>
+                <Name name={this.state.name}/>
                 <Age age={this.state.number}/>
             </div>
         );
@@ -21,7 +40,15 @@ var Example = React.createClass({
 });
 
 var Name = React.createClass({
-    render() {
+    propTypes: {
+        name: React.PropTypes.string.isRequired
+    },
+    getDefaultProps() {
+        return {
+            name: 'bedisdover'
+        };
+    },
+    render: function () {
         return (
             <p>{this.props.name}</p>
         );
