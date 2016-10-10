@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react-dom": "^15.3.2",
+    "remarkable": "latest"
   },
   "devDependencies": {
     "webpack": "^1.13.2"

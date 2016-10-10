@@ -1,71 +1,96 @@
 import React from "react";
+import Remarkable from "remarkable";
 
-var Example = React.createClass({
-    getInitialState() {
+var CommentBox = React.createClass({
+    getInitialState: function () {
+        return {data: []};
+    },
+    getDefaultProps: function () {
         return {
-            name: 'ldk',
-            number: 1
+            url: 'json/comments.json'
         }
     },
-
-    componentDidMount: function () {
-        this.timer = setInterval(function () {
-            this.setState({
-                number: this.state.number + 1
-            });
-
-            if (this.state.number == 5) {
-                clearTimeout(this.timer);
-            }
-        }.bind(this), 1000);
-    },
-
-    handleClick: function () {
-        this.setState({
-            number: this.state.number + 1,
-            name: 'song'
-        }, function () {
-            this.forceUpdate();
-            alert('姓名改变');
+    loadComments: function () {
+        $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                console.log(data);
+                this.setState({data: data});
+            }.bind(this),
+            error: function (data) {
+                console.log(data);
+            }.bind(this)
         });
     },
-    render() {
+    componentDidMount: function () {
+        this.loadComments();
+        setInterval(this.loadComments, 2000);
+    },
+    render: function () {
         return (
-            <div onClick={this.handleClick}>
-                <Name name={this.state.name}/>
-                <Age age={this.state.number}/>
+            <div className="text-center">
+                <h1>Comments</h1>
+                <CommentList data={this.state.data}/>
+                <CommentForm />
+            </div>
+        )
+    }
+});
+
+var CommentList = React.createClass({
+    render: function () {
+        var commentNode = this.props.data.map(function (comment) {
+            return (
+                <Comment author={comment.author} key={comment.id}>
+                    {comment.text}
+                </Comment>
+            )
+        });
+        return (
+            <div className="commentList">
+                {commentNode}
+            </div>
+        )
+    }
+});
+
+var CommentForm = React.createClass({
+    render: function () {
+        return (
+            <form className="commentForm">
+                <input type="text" placeholder="Your name"/><br/>
+                <input type="text" placeholder="Say something..."/><br/>
+                <input type="submit" value="Post"/>
+            </form>
+        )
+    }
+});
+
+var Comment = React.createClass({
+    getDefaultProps: function () {
+        return {
+            author: ''
+        }
+    },
+    render: function () {
+        return (
+            <div className="comment">
+                <h2 className="commentAuthor">
+                    {this.props.author}
+                </h2>
+                <span dangerouslySetInnerHTML={rawMarkup(this.props.children)}/>
             </div>
         );
     }
 });
 
-var Name = React.createClass({
-    propTypes: {
-        name: React.PropTypes.string.isRequired
-    },
-    getDefaultProps() {
-        return {
-            name: 'bedisdover'
-        };
-    },
-    render: function () {
-        return (
-            <p>{this.props.name}</p>
-        );
-    }
-});
+function rawMarkup(str) {
+    var md = new Remarkable();
+    var rawMarkup = md.render(str);
 
-var Age = React.createClass({
-    getDefaultProps() {
-        return {
-            age: 20
-        }
-    },
-    render() {
-        return (
-            <p>{this.props.age}</p>
-        );
-    }
-});
+    return {__html: rawMarkup};
+}
 
-export default Example;
+export default CommentBox;
