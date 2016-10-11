@@ -2,27 +2,36 @@ import React from "react";
 import Remarkable from "remarkable";
 
 var CommentBox = React.createClass({
-    getInitialState: function () {
-        return {data: []};
-    },
-    getDefaultProps: function () {
-        return {
-            url: 'json/comments.json'
-        }
-    },
     loadComments: function () {
         $.ajax({
             url: this.props.url,
             dataType: 'json',
             cache: false,
             success: function (data) {
-                console.log(data);
                 this.setState({data: data});
             }.bind(this),
             error: function (data) {
                 console.log(data);
             }.bind(this)
         });
+    },
+    handleCommentSubmit: function(comment) {
+        var comments = this.state.data;
+
+        comment.id = Date.now();
+        var newComments = comments.concat(comment);
+
+        this.setState({data: newComments});
+    },
+    getInitialState: function () {
+        return {
+            data: []
+        };
+    },
+    getDefaultProps: function () {
+        return {
+            url: 'json/comments.json'
+        }
     },
     componentDidMount: function () {
         this.loadComments();
@@ -33,7 +42,7 @@ var CommentBox = React.createClass({
             <div className="text-center">
                 <h1>Comments</h1>
                 <CommentList data={this.state.data}/>
-                <CommentForm />
+                <CommentForm onCommentSubmit={this.handleCommentSubmit}/>
             </div>
         )
     }
@@ -57,11 +66,38 @@ var CommentList = React.createClass({
 });
 
 var CommentForm = React.createClass({
+    handleAuthorChange: function (e) {
+        this.setState({author: e.target.value})
+    },
+    handleTextChange: function (e) {
+        this.setState({text: e.target.value})
+    },
+    handleSubmit: function(e) {
+        e.preventDefault();
+
+        var author = this.state.author.trim();
+        var text = this.state.text.trim();
+
+        if (!author || !text) {
+            return;
+        }
+
+        this.props.onCommentSubmit({author: author, text: text});
+        this.setState({author: '', text: ''});
+    },
+    getInitialState: function () {
+        return {
+            author: '',
+            text: ''
+        }
+    },
     render: function () {
         return (
-            <form className="commentForm">
-                <input type="text" placeholder="Your name"/><br/>
-                <input type="text" placeholder="Say something..."/><br/>
+            <form className="commentForm" onSubmit={this.handleSubmit}>
+                <input type="text" placeholder="Your name" value={this.state.author}
+                       onChange={this.handleAuthorChange}/><br/>
+                <input type="text" placeholder="Say something..." value={this.state.text}
+                       onChange={this.handleTextChange}/><br/>
                 <input type="submit" value="Post"/>
             </form>
         )
@@ -86,6 +122,11 @@ var Comment = React.createClass({
     }
 });
 
+/**
+ * 使用markdown样式渲染文本
+ * @param str
+ * @returns {{__html: String}}
+ */
 function rawMarkup(str) {
     var md = new Remarkable();
     var rawMarkup = md.render(str);

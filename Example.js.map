@@ -1,1 +1,12 @@
-{"version":3,"sources":["Example.jsx"],"names":[],"mappings":";;;;;;AAAA;;;;;;AAEA,IAAI,aAAa,gBAAM,WAAN,CAAkB;AAC/B,YAAQ,kBAAW,CAElB;AAH8B,CAAlB,CAAjB;;AAMA,IAAI,cAAc,gBAAM,WAAN,CAAkB;AAChC,YAAQ,kBAAW,CAElB;AAH+B,CAAlB,CAAlB;;AAMA,IAAI,cAAc,gBAAM,WAAN,CAAkB;AAChC,YAAQ,kBAAW,CAElB;AAH+B,CAAlB,CAAlB;;AAMA,IAAI,UAAU,gBAAM,WAAN,CAAkB;AAC5B,YAAQ,kBAAW;AACf;AACH;AAH2B,CAAlB,CAAd;;kBAMe,U","file":"Example.js","sourcesContent":["import React from \"react\";\n\nvar CommentBox = React.createClass({\n    render: function() {\n\n    }\n});\n\nvar CommentList = React.createClass({\n    render: function() {\n\n    }\n});\n\nvar CommentForm = React.createClass({\n    render: function() {\n\n    }\n});\n\nvar Comment = React.createClass({\n    render: function() {\n        return \n    }\n});\n\nexport default CommentBox;"]}
+{
+  "version": 3,
+  "sources": [
+    "Example.jsx"
+  ],
+  "names": [],
+  "mappings": ";;;;;;AAAA;;;;;;AAEA,IAAI,aAAa,gBAAM,WAAN,CAAkB;AAC/B,YAAQ,kBAAW,CAElB;AAH8B,CAAlB,CAAjB;;AAMA,IAAI,cAAc,gBAAM,WAAN,CAAkB;AAChC,YAAQ,kBAAW,CAElB;AAH+B,CAAlB,CAAlB;;AAMA,IAAI,cAAc,gBAAM,WAAN,CAAkB;AAChC,YAAQ,kBAAW,CAElB;AAH+B,CAAlB,CAAlB;;AAMA,IAAI,UAAU,gBAAM,WAAN,CAAkB;AAC5B,YAAQ,kBAAW;AACf;AACH;AAH2B,CAAlB,CAAd;;kBAMe,U",
+  "file": "Example.js",
+  "sourcesContent": [
+    "import React from \"react\";\n\nvar CommentBox = React.createClass({\n    render: function() {\n\n    }\n});\n\nvar CommentList = React.createClass({\n    render: function() {\n\n    }\n});\n\nvar CommentForm = React.createClass({\n    render: function() {\n\n    }\n});\n\nvar Comment = React.createClass({\n    render: function() {\n        return \n    }\n});\n\nexport default CommentBox;"
+  ]
+}

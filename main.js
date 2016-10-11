@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './App.jsx';
-import CommentBox from './Example.jsx';
+import FilterableProductTable from './FilterableProductTable.jsx';
 
-ReactDOM.render(<App />, document.getElementById('app'));
-ReactDOM.render(<CommentBox />, document.getElementById('example'));
+ReactDOM.render(<FilterableProductTable />, document.getElementById('table'));
