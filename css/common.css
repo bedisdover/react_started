@@ -1,3 +1,11 @@
 .h1 {
     color: #336699;
 }
+
+.stocked {
+    color: black;
+}
+
+.un-stocked {
+    color: red;
+}

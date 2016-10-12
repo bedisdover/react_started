@@ -43,14 +43,13 @@ var SearchBar = React.createClass({
 
 var ProductTable = React.createClass({
     render: function () {
+        var products = [];
+        /*TODO 干掉*/
         var products = this.props.data.map(function (product) {
+            console.log(123);
             return (
-                /*FIXME 。。。*/
-                <ProductRow category={product.category}
-                            price={product.price}
-                            stocked={product.stocked}
-                            name={product.name}
-                            key={product.name}
+                <ProductRow
+
                 />
             )
         });
@@ -66,13 +65,9 @@ var ProductTable = React.createClass({
                     </thead>
                     <tbody>
                     <ProductCategoryRow />
-                    <ProductRow />
-                    <ProductRow />
-                    <ProductRow />
+                    {products}
                     <ProductCategoryRow />
-                    <ProductRow />
-                    <ProductRow />
-                    <ProductRow />
+
                     </tbody>
                 </table>
             </div>
@@ -84,7 +79,7 @@ var ProductCategoryRow = React.createClass({
     render: function () {
         return (
             <tr>
-                <td colSpan="2">{this.props.name}</td>
+                <th colSpan="2">{this.props.category}</th>
             </tr>
         )
     }
@@ -92,9 +87,11 @@ var ProductCategoryRow = React.createClass({
 
 var ProductRow = React.createClass({
     render: function () {
+        var className = this.props.stocked ? 'stocked' : 'un-stocked';
+
         return (
             <tr>
-                <td>{this.props.name}</td>
+                <td className={className}>{this.props.name}</td>
                 <td>{this.props.price}</td>
             </tr>
         )
